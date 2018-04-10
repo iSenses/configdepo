@@ -1,0 +1,133 @@
+{
+    "log": {
+        "access": "/var/log/v2ray/access.log",
+        "error": "/var/log/v2ray/error.log",
+        "loglevel": "warning"
+    },
+    "inbound": {
+        "port": 30321,
+        "protocol": "vmess",
+        "settings": {            
+"clients": [
+                {
+                    "id": "1efcd8a5-6bd9-4a60-8668-f2063d7b1260",
+                    "alterId": 64
+                }
+            ],
+            "detour": {
+                "to": "dynamicPort"
+            }
+        },
+
+        "streamSettings": {
+            "network": "kcp",
+            "security": "",
+            "tcpSettings": null,
+            "kcpSettings": {
+                "mtu": 1350,
+                "tti": 50,
+                "uplinkCapacity": 5,
+                "downlinkCapacity": 100,
+                "congestion": false,
+                "readBufferSize": 8,
+                "writeBufferSize": 8,
+                "header": {
+                    "type": "srtp",
+                    "request": null,
+                    "response": null
+                }
+            },
+            "wsSettings": null
+        },
+        "mux": {
+            "enabled": true
+        }
+    },
+
+    "outbound": {
+        "protocol": "freedom",
+        "settings": {}
+    },
+
+    "inboundDetour": [
+        {
+            "protocol":"vmess",
+            "port": "21000-23000",
+            "tag": "dynamicPort",
+            "settings": {
+                "default": {
+                    "level": 1,
+                    "alterId": 64
+                }
+            },
+            "allocate": {
+                "strategy": "random",
+                "concurrency": 3,
+                "refresh": 5
+            },
+            "streamSettings": {
+                "network": "kcp",
+                "security": "",
+                "tcpSettings": null,
+                "kcpSettings": {
+                    "mtu": 1350,
+                    "tti": 50,
+                    "uplinkCapacity": 5,
+                    "downlinkCapacity": 100,
+                    "congestion": false,
+                    "readBufferSize": 8,
+                    "writeBufferSize": 8,
+                    "header": {
+                        "type": "srtp",
+                        "request": null,
+                        "response": null
+                    }
+                },
+                "wsSettings": null
+            },
+            "mux": {
+                "enabled": true
+            }
+        }
+    ],
+    "outboundDetour": [
+        {
+            "protocol": "blackhole",
+            "settings": null,
+            "tag": "blocked"
+        }
+    ],
+    "dns": null,
+    "routing": {
+        "strategy": "rules",
+        "settings": {
+            "domainStrategy": null,
+            "rules": [
+                {
+                    "type": "field",
+                    "port": null,
+                    "outboundTag": "blocked",
+                    "ip": [
+                        "0.0.0.0/8",
+                        "10.0.0.0/8",
+                        "100.64.0.0/10",
+                        "127.0.0.0/8",
+                        "169.254.0.0/16",
+                        "172.16.0.0/12",
+                        "192.0.0.0/24",
+                        "192.0.2.0/24",
+                        "192.168.0.0/16",
+                        "198.18.0.0/15",
+                        "198.51.100.0/24",
+                        "203.0.113.0/24",
+                        "::1/128",
+                        "fc00::/7",
+                        "fe80::/10"
+                        ],
+                        "domain": null
+                }
+            ]
+        }
+    } 
+}
+
